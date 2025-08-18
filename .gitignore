@@ -1,0 +1,6 @@
+# dependencies
+docu-ui-mock/node_modules
+planis-ui-mock/node_modules
+
+planis-ui-mock/package-lock.json
+docu-ui-mock/package-lock.json
