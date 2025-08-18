@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  createBrowserRouter,
-  BrowserRouter,
-  Routes,
-  Route,
-  RouterProvider,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ProceedingPage from './pages/ProceedingPage';
 import DocPage from './pages/DocPage';
 import StoreProvider from './providers/StoreProvider';

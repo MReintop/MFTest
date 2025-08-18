@@ -19,7 +19,7 @@ const PlanningAreaForm = ({ isEditable }) => {
   };
 
   return (
-    <Grid container spacing={2} direction={'column'}>
+    <Grid container spacing={2} direction="column">
       <Grid size={12} item>
         <TextField
           fullWidth
