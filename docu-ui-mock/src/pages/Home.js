@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import PageWrapper from '../components/PageWrapper';
 
-
 const HomePage = () => {
   const navigate = useNavigate();
 
@@ -23,7 +22,10 @@ const HomePage = () => {
         </Grid>
 
         <Grid size={12}>
-          <Button variant="outlined" onClick={() => navigate('/proceeding/1')}>
+          <Button
+            variant="outlined"
+            onClick={() => navigate('/proceeding/1/1')}
+          >
             Menetlus
           </Button>
         </Grid>

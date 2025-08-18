@@ -1,4 +1,6 @@
 import React from 'react';
+import { useStore } from 'react-redux';
+
 import PageWrapper from '../components/PageWrapper';
 import { Box, Tabs, Tab } from '@mui/material';
 import PlanningTabContent from './tabContents/PlanningTabContent';
@@ -11,7 +13,7 @@ const ProceedingPage = () => {
     setTabIndex(newValue);
   };
 
-  // SIin menetluse andmed
+  // Siin menetluse leht
   return (
     <PageWrapper title="Menetlus">
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

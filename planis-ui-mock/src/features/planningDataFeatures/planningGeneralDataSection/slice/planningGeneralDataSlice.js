@@ -23,6 +23,9 @@ export const planningGeneralDataSlice = createSlice({
     setPlanningName: (state, action) => {
       state.planningName = action.payload;
     },
+    cleanPlanningGeneralDataSlice: () => {
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPlanningData.fulfilled, (state, { payload }) => {
@@ -69,6 +72,7 @@ export const planningDataErrorSelector = createSelector(
 );
 
 // Action creators are generated for each case reducer function
-export const { setPlanningName } = planningGeneralDataSlice.actions;
+export const { setPlanningName, cleanPlanningGeneralDataSlice } =
+  planningGeneralDataSlice.actions;
 
 export default planningGeneralDataSlice.reducer;

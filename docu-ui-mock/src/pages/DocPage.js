@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useStore } from 'react-redux';
 import PageWrapper from '../components/PageWrapper';
 import { Box, Tabs, Tab, Button } from '@mui/material';
 import PlanningTabContent from './tabContents/PlanningTabContent';
@@ -6,9 +7,18 @@ import { a11yProps, CustomTabPanel } from '../components/CustomTabPanel';
 import usePlanningModule from '../hooks/usePlanningModule';
 
 const DocPage = () => {
+  const store = useStore();
+
   const [tabIndex, setTabIndex] = React.useState(0);
 
-  const { savePlanningModule } = usePlanningModule();
+  const { savePlanningModule, umnountPlanningModule } = usePlanningModule();
+
+  useEffect(() => {
+    // TODO : Kas me tahaks siin planise store käima tõmmata ?
+    return () => {
+      umnountPlanningModule();
+    };
+  }, []);
 
   const handleChange = (event, newValue) => {
     setTabIndex(newValue);
@@ -23,6 +33,7 @@ const DocPage = () => {
     console.log('SIIN docpages peale savemist');
   };
 
+  console.log('SIIN store', store.getState());
   return (
     <PageWrapper title="Document">
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

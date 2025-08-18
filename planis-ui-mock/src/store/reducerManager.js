@@ -4,6 +4,7 @@ export function createReducerManager(initialReducers) {
   const reducers = { ...initialReducers };
   let combinedReducer = combineReducers(reducers);
 
+  // TODO : Kuna agluses tühim siis viskab errorit store loomisel
   return {
     getReducerMap: () => reducers,
     reduce: (state, action) => combinedReducer(state, action),

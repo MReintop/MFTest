@@ -8,9 +8,16 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 module.exports = {
   mode: 'development',
+  output: {
+    publicPath: 'auto',
+  },
   devServer: {
-    static: path.join(__dirname, 'dist'),
     port: 3000,
+    historyApiFallback: true,
+    static: {
+      directory: path.join(__dirname, 'dist'),
+      publicPath: 'auto',
+    },
   },
   module: {
     rules: [
@@ -37,8 +44,6 @@ module.exports = {
       name: 'PlansUI',
       filename: 'remoteEntry.js',
       exposes: {
-        './Button': './src/Button',
-        './RandomTable': './src/components/RandomTable',
         './PlanningGeneralDataSection':
           './src/features/planningDataFeatures/planningGeneralDataSection/PlanningGeneraDataSection.js',
         './PlanningAreaSection':
@@ -46,7 +51,7 @@ module.exports = {
         './planningModuleEvents': './src/store/planningModuleEvents',
       },
       remotes: {
-        container: 'Host@http://localhost:3000/remoteEntry.js',
+        container: 'DocuUI@http://localhost:3001/remoteEntry.js',
       },
       shared: [
         {
@@ -72,7 +77,7 @@ module.exports = {
           },
           'react-redux': {
             singleton: false,
-            version: deps['react-router-dom'],
+            requiredVersion: deps['react-router-dom'],
           },
         },
       ],

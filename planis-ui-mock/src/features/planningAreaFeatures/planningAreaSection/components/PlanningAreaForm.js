@@ -35,7 +35,7 @@ const PlanningAreaForm = ({ isEditable }) => {
       <Grid size={12} item>
         <Typography>Koordinaadid : </Typography>
         {plannignAreaCoordinates?.map((coordinate) => (
-          <Box padding={1}>
+          <Box padding={1} key={coordinate[1]}>
             {coordinate[0]} - {coordinate[1]}
           </Box>
         ))}

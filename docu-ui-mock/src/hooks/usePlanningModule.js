@@ -1,15 +1,28 @@
 import React from 'react';
 
-
-const usePlanningModule = () =>{
+const usePlanningModule = () => {
   const savePlanningModule = async () => {
-    const { handleSaveEvent } = await import('PlansUI/planningModuleEvents');
-    await handleSaveEvent();
-
-    console.log('SIIN hookis peale SAVE')
+    try {
+      const { handleSaveEvent } = await import('PlansUI/planningModuleEvents');
+      await handleSaveEvent();
+    } catch (e) {
+      console.log('SIIN', e);
+    }
   };
 
-  return { savePlanningModule }
+  const umnountPlanningModule = async () => {
+    try {
+      const { handleUnmountEvent } = await import(
+        'PlansUI/planningModuleEvents'
+      );
+
+      await handleUnmountEvent();
+    } catch (e) {
+      console.log('SIIN', e);
+    }
+  };
+
+  return { savePlanningModule, umnountPlanningModule };
 };
 
 export default usePlanningModule;

@@ -9,12 +9,13 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 module.exports = {
   mode: 'development',
+  output: {
+    publicPath: 'auto',
+  },
   devServer: {
-    static: path.join(__dirname, 'dist'),
     port: 3001,
-    historyApiFallback: {
-      index: '/public/index.html',
-    },
+    historyApiFallback: true,
+    static: path.join(__dirname, 'public'),
   },
   module: {
     rules: [
@@ -38,7 +39,7 @@ module.exports = {
   plugins: [
     htmlPlugin,
     new ModuleFederationPlugin({
-      name: 'Host',
+      name: 'DocuUI',
       filename: 'remoteEntry.js',
       remotes: {
         PlansUI: 'PlansUI@http://localhost:3000/remoteEntry.js',
@@ -66,7 +67,7 @@ module.exports = {
           },
           'react-redux': {
             singleton: false,
-            version: deps['react-router-dom'],
+            requiredVersion: deps['react-router-dom'],
           },
         },
       ],

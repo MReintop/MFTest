@@ -1,7 +1,13 @@
 import { store } from '.';
-import { PlanningAreaSliceKey } from '../features/planningAreaFeatures/planningAreaSection/slice/planningAreaSlice';
+import {
+  cleanPlanningAreaSlice,
+  PlanningAreaSliceKey,
+} from '../features/planningAreaFeatures/planningAreaSection/slice/planningAreaSlice';
 import { savePlanningAreaData } from '../features/planningAreaFeatures/planningAreaSection/thunks/planningAreaThunks';
-import { PlanningGeneralDataSliceKey } from '../features/planningDataFeatures/planningGeneralDataSection/slice/planningGeneralDataSlice';
+import {
+  cleanPlanningGeneralDataSlice,
+  PlanningGeneralDataSliceKey,
+} from '../features/planningDataFeatures/planningGeneralDataSection/slice/planningGeneralDataSlice';
 import { savePlanningGeneralData } from '../features/planningDataFeatures/planningGeneralDataSection/thunks/planningGeneralDataThunks';
 
 // Ei saanud kasutada Promise.all või Promise.allSettled, ta kutsub dispatch välja
@@ -29,4 +35,20 @@ export const handleSaveEvent = async () => {
     console.log('SIIN', e);
     return false;
   }
+};
+
+export const handleUnmountEvent = async () => {
+  const existingReducers = Object.keys(store.getState());
+
+  if (existingReducers.includes(PlanningGeneralDataSliceKey)) {
+    store.dispatch(cleanPlanningGeneralDataSlice());
+  }
+
+  if (existingReducers.includes(PlanningAreaSliceKey)) {
+    store.dispatch(cleanPlanningAreaSlice());
+  }
+
+  // TODO : Kumba moodi me tahame, kas me eemaldame või teeme tühjaks ?
+  store.reducerManager.remove(PlanningGeneralDataSliceKey);
+  store.reducerManager.remove(PlanningAreaSliceKey);
 };

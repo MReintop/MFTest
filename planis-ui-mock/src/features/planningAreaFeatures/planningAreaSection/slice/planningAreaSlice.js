@@ -22,6 +22,9 @@ export const planningAreaSlice = createSlice({
     setPlanningAreaSize: (state, action) => {
       state.areaSize = action.payload;
     },
+    cleanPlanningAreaSlice: () => {
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPlanningAreaData.fulfilled, (state, { payload }) => {
@@ -73,7 +76,10 @@ export const planningAreaErrorSelector = createSelector(
 );
 
 // Action creators are generated for each case reducer function
-export const { setPlanningCoordinates, setPlanningAreaSize } =
-  planningAreaSlice.actions;
+export const {
+  setPlanningCoordinates,
+  setPlanningAreaSize,
+  cleanPlanningAreaSlice,
+} = planningAreaSlice.actions;
 
 export default planningAreaSlice.reducer;
