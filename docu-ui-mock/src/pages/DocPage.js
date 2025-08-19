@@ -14,7 +14,13 @@ const DocPage = () => {
   const { savePlanningModule, umnountPlanningModule } = usePlanningModule();
 
   useEffect(() => {
-    // TODO : Kas me tahaks siin planise store käima tõmmata ?
+    // TODO : Kas me tahaks siin planise mooduli käima tõmmata ?
+
+    // TODO : Globaalsed evendid alternatiiv
+    // Kas backend saab hoopis valideerida, et planis on salvestunud?
+    // Checki aktiivseid network requeste
+
+    // KUIDAS NOTIFICATIONID
     return () => {
       umnountPlanningModule();
     };

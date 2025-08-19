@@ -41,14 +41,15 @@ export const handleUnmountEvent = async () => {
   const existingReducers = Object.keys(store.getState());
 
   if (existingReducers.includes(PlanningGeneralDataSliceKey)) {
+    // Kasutada ühte või teist, mitte mõlemat varianti
     store.dispatch(cleanPlanningGeneralDataSlice());
+
+    store.reducerManager.remove(PlanningGeneralDataSliceKey);
   }
 
   if (existingReducers.includes(PlanningAreaSliceKey)) {
     store.dispatch(cleanPlanningAreaSlice());
-  }
 
-  // TODO : Kumba moodi me tahame, kas me eemaldame või teeme tühjaks ?
-  store.reducerManager.remove(PlanningGeneralDataSliceKey);
-  store.reducerManager.remove(PlanningAreaSliceKey);
+    store.reducerManager.remove(PlanningAreaSliceKey);
+  }
 };
