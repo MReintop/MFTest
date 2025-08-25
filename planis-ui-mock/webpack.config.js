@@ -16,7 +16,6 @@ module.exports = {
     historyApiFallback: true,
     static: {
       directory: path.join(__dirname, 'dist'),
-      publicPath: 'auto',
     },
   },
   module: {
@@ -48,11 +47,9 @@ module.exports = {
           './src/features/planningDataFeatures/planningGeneralDataSection/PlanningGeneraDataSection.js',
         './PlanningAreaSection':
           './src/features/planningAreaFeatures/planningAreaSection/PlanningAreaSection',
-        './planningModuleEvents': './src/store/planningModuleEvents',
+        './planningModuleEvents': './src/events/planningModuleEvents',
       },
-      remotes: {
-        container: 'DocuUI@http://localhost:3001/remoteEntry.js',
-      },
+
       shared: [
         {
           react: {

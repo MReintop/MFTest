@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { addNotification } from './documentSlice';
 
 const saveCurrentDocument = async (docState) => {
   return new Promise((resolve, reject) => {
@@ -12,11 +13,15 @@ export const saveDocument = createAsyncThunk(
   'document/saveDocument',
   async (_, { getState, dispatch }) => {
     const state = getState();
-    console.log('SIIN SAVEN', state.document.documentState);
-
     const food = await saveCurrentDocument(state.document.documentStat);
-
-    console.log('SIIN doc saved');
+    dispatch(addNotification('Dokument salvestatud'));
     return food;
+  },
+);
+
+export const sendNotification = createAsyncThunk(
+  'document/sendNotification',
+  async (message, { dispatch }) => {
+    dispatch(addNotification(message));
   },
 );

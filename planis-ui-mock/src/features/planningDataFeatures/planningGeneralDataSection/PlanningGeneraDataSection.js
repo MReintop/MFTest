@@ -24,6 +24,7 @@ import planningGeneralDataReducer, {
 
 import { fetchPlanningData } from './thunks/planningGeneralDataThunks';
 import PlanningDetailsForm from './components/PlanningDetailsForm';
+import { startListeningToEvents } from '../../../events/planningModuleEvents';
 
 const PlanningGeneralDataSection = ({ permissions }) => {
   const { planningId } = useParams();
@@ -34,6 +35,9 @@ const PlanningGeneralDataSection = ({ permissions }) => {
   const planningData = useSelector(planningDataSelector);
 
   useEffect(() => {
+    // Should we start listening here instead. Why would we listen if there is nothing to save in store?
+    // startListeningToEvents();
+
     store.reducerManager.add(
       PlanningGeneralDataSliceKey,
       planningGeneralDataReducer,

@@ -1,28 +1,48 @@
 import React, { useEffect } from 'react';
-import { useStore } from 'react-redux';
+import { useStore, useSelector, useDispatch } from 'react-redux';
 import PageWrapper from '../components/PageWrapper';
-import { Box, Tabs, Tab, Button } from '@mui/material';
+import { Box, Tabs, Tab, Button, SnackbarContent, Stack } from '@mui/material';
 import PlanningTabContent from './tabContents/PlanningTabContent';
 import { a11yProps, CustomTabPanel } from '../components/CustomTabPanel';
 import usePlanningModule from '../hooks/usePlanningModule';
+import {
+  startListeningDocPageEvents,
+  stopListeningDocPageEvents,
+} from '../events/documentModuleEvents';
+import {
+  notificationsSelector,
+  setNotifications,
+} from '../store/documentSlice';
+import { EventBus, EventType } from '../events/eventBus';
+import { saveDocument } from '../store/documentThunks';
 
 const DocPage = () => {
   const store = useStore();
+  const dispatch = useDispatch();
 
   const [tabIndex, setTabIndex] = React.useState(0);
+  const [localNotifications, setLocalNotifications] = React.useState([]);
 
-  const { savePlanningModule, umnountPlanningModule } = usePlanningModule();
+  const {
+    planningModuleStartListeningEvents,
+    umnountPlanningModule,
+    savePlanningModule,
+  } = usePlanningModule();
+
+  const notifications = useSelector(notificationsSelector);
 
   useEffect(() => {
-    // TODO : Kas me tahaks siin planise mooduli käima tõmmata ?
+    startListeningDocPageEvents();
 
-    // TODO : Globaalsed evendid alternatiiv
-    // Kas backend saab hoopis valideerida, et planis on salvestunud?
-    // Checki aktiivseid network requeste
-
-    // KUIDAS NOTIFICATIONID
+    // Kas see vajalik, kui meil pole seal midagi muudetud
+    planningModuleStartListeningEvents();
     return () => {
-      umnountPlanningModule();
+      // imported functions
+      // umnountPlanningModule();
+
+      // globalEvents
+      EventBus.emit(EventType.Unmount);
+      stopListeningDocPageEvents();
     };
   }, []);
 
@@ -30,16 +50,39 @@ const DocPage = () => {
     setTabIndex(newValue);
   };
 
-  const saveDocument = async () => {
-    const successful = await savePlanningModule();
-    if (successful) {
-      console.log('SIIN save successful parentis');
-    }
+  const saveClicked = async () => {
+    console.log('SIIN save clicked');
+    // Global event
+    EventBus.emit(EventType.Save);
 
+    EventBus.on(EventType.PlanningModuleSaved, () => {
+      dispatch(saveDocument());
+    });
+
+    // Imported fn
+    // await savePlanningModule();
     console.log('SIIN docpages peale savemist');
   };
 
-  console.log('SIIN store', store.getState());
+  const removeNotifications = () => {
+    dispatch(setNotifications([]));
+    setLocalNotifications([]);
+  };
+
+  useEffect(() => {
+    if (notifications.length) {
+      setLocalNotifications(notifications);
+    }
+  }, [notifications]);
+
+  const Notification = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={removeNotifications}>
+        UNDO
+      </Button>
+    </React.Fragment>
+  );
+
   return (
     <PageWrapper title="Document">
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -66,11 +109,25 @@ const DocPage = () => {
       <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
         {/* Parent kontrollib, et save on välja kutsutud enne submiti */}
 
-        <Button variant="outlined" onClick={() => saveDocument()}>
+        <Button variant="outlined" onClick={() => saveClicked()}>
           Save
         </Button>
         <Button>Submit</Button>
       </Box>
+
+      {!!localNotifications.length && (
+        <Stack spacing={2} sx={{ maxWidth: 600 }}>
+          {localNotifications.map((notification) => (
+            <SnackbarContent
+              open={open}
+              autoHideDuration={6000}
+              onClose={removeNotifications}
+              message={notification}
+              action={Notification}
+            />
+          ))}
+        </Stack>
+      )}
     </PageWrapper>
   );
 };

@@ -13,15 +13,12 @@ const PlanningTabContent = () => {
   const [permissions, setPermissions] = useState(['R']);
 
   const changePermissons = () => {
-    console.log('SIIN', permissions.includes('R'));
     if (permissions.includes('R')) {
       setPermissions(['W']);
     } else if (permissions.includes('W')) {
       setPermissions(['R']);
     }
   };
-
-  console.log('SIIN', permissions);
 
   return (
     <div>

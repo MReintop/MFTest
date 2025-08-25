@@ -28,9 +28,10 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <StoreProvider>
-      <React.StrictMode>
-        <RouterProvider router={router} />
-      </React.StrictMode>
+      {/* Removed strict mode. Triggers mount-unmount twice otherwise locally */}
+      {/* <React.StrictMode> */}
+      <RouterProvider router={router} />
+      {/* </React.StrictMode> */}
     </StoreProvider>
   );
 }

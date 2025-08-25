@@ -22,6 +22,7 @@ import planningAreaSliceReducer, {
   planningAreaSliceMountedSelector,
 } from './slice/planningAreaSlice';
 import { fetchPlanningAreaData } from './thunks/planningAreaThunks';
+import { startListeningToEvents } from '../../../events/planningModuleEvents';
 
 const PlanningAreaSection = ({ permissions }) => {
   const { planningId } = useParams();
@@ -32,6 +33,8 @@ const PlanningAreaSection = ({ permissions }) => {
   const planningIdFromStore = useSelector(planningAreaIdSelector);
 
   useEffect(() => {
+    // Should we start listening here instead. Why would we listen if there is nothing to save in store?
+    // startListeningToEvents();
     store.reducerManager.add(PlanningAreaSliceKey, planningAreaSliceReducer);
   }, []);
 
