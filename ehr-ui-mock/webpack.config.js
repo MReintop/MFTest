@@ -2,7 +2,6 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 const path = require('path');
 const deps = require('./package.json').dependencies;
-
 const htmlPlugin = new HtmlWebPackPlugin({
   template: './public/index.html',
   filename: './index.html',
@@ -13,9 +12,11 @@ module.exports = {
     publicPath: 'auto',
   },
   devServer: {
-    port: 3001,
+    port: 3002,
     historyApiFallback: true,
-    static: path.join(__dirname, 'public'),
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
   },
   module: {
     rules: [
@@ -39,14 +40,10 @@ module.exports = {
   plugins: [
     htmlPlugin,
     new ModuleFederationPlugin({
-      name: 'DocuUI',
+      name: 'EhrUI',
       filename: 'remoteEntry.js',
       remotes: {
-        PlansUI: 'PlansUI@http://localhost:3000/remoteEntry.js',
-      },
-      exposes: {
-        './DocPage': './src/pages/DocPage',
-        './ProceedingPage': './src/pages/ProceedingPage',
+        DocuUI: 'DocuUI@http://localhost:3001/remoteEntry.js',
       },
       shared: [
         {
@@ -56,10 +53,11 @@ module.exports = {
             requiredVersion: deps.react,
           },
           'react-dom': {
-            singleton: true,
             eager: true,
+            singleton: true,
             requiredVersion: deps['react-dom'],
           },
+
           'react-router-dom': {
             singleton: true,
             eager: true,

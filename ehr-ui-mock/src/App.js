@@ -1,9 +1,8 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import DocPage from './pages/DocPage';
-import ProceedingPage from './pages/ProceedingPage';
-import StoreProvider from './providers/StoreProvider';
 import HomePage from './pages/Home';
+import ProceedingPageWrapper from './pages/ProceedingPageWrapper';
+import DocPageWrapper from './pages/DocPageWrapper';
 
 const router = createBrowserRouter([
   {
@@ -15,23 +14,25 @@ const router = createBrowserRouter([
   {
     id: 'proceeding',
     path: '/proceeding/:proceedingNr/:planningId',
-    element: <ProceedingPage />,
+    element: <ProceedingPageWrapper />,
   },
 
   {
     id: 'document',
     path: '/document/:planningId',
-    element: <DocPage />,
+    element: <DocPageWrapper />,
   },
 ]);
 
 export default function App() {
   return (
-    <StoreProvider>
+    <>
+      {/* <StoreProvider> */}
       {/* Removed strict mode. Triggers mount-unmount twice otherwise locally */}
       {/* <React.StrictMode> */}
       <RouterProvider router={router} />
       {/* </React.StrictMode> */}
-    </StoreProvider>
+      {/* </StoreProvider> */}
+    </>
   );
 }

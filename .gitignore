@@ -1,6 +1,8 @@
 # dependencies
 docu-ui-mock/node_modules
 planis-ui-mock/node_modules
+ehr-ui-mock/node_modules
 
 planis-ui-mock/package-lock.json
 docu-ui-mock/package-lock.json
+ehr-ui-mock/package-lock.json

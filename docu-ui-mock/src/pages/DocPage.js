@@ -15,6 +15,7 @@ import {
 } from '../store/documentSlice';
 import { EventBus, EventType } from '../events/eventBus';
 import { saveDocument } from '../store/documentThunks';
+import ReduxProvider from '../providers/StoreProvider';
 
 const DocPage = () => {
   const store = useStore();
@@ -84,7 +85,7 @@ const DocPage = () => {
   );
 
   return (
-    <PageWrapper title="Document">
+    <>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={tabIndex}
@@ -128,8 +129,16 @@ const DocPage = () => {
           ))}
         </Stack>
       )}
-    </PageWrapper>
+    </>
   );
 };
 
-export default DocPage;
+const DocPageWithStore = (props) => {
+  return (
+    <ReduxProvider>
+      <DocPage {...props} />
+    </ReduxProvider>
+  );
+};
+
+export default DocPageWithStore;

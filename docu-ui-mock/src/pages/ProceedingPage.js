@@ -5,6 +5,7 @@ import PageWrapper from '../components/PageWrapper';
 import { Box, Tabs, Tab } from '@mui/material';
 import PlanningTabContent from './tabContents/PlanningTabContent';
 import { a11yProps, CustomTabPanel } from '../components/CustomTabPanel';
+import ReduxProvider from '../providers/StoreProvider';
 
 const ProceedingPage = () => {
   const [tabIndex, setTabIndex] = React.useState(0);
@@ -15,7 +16,7 @@ const ProceedingPage = () => {
 
   // Siin menetluse leht
   return (
-    <PageWrapper title="Menetlus">
+    <>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={tabIndex}
@@ -37,8 +38,16 @@ const ProceedingPage = () => {
         <PlanningTabContent />
       </CustomTabPanel>
       {/*  BUTTONS */}
-    </PageWrapper>
+    </>
   );
 };
 
-export default ProceedingPage;
+const ProceedingPageWithStore = (props) => {
+  return (
+    <ReduxProvider>
+      <ProceedingPage {...props} />
+    </ReduxProvider>
+  );
+};
+
+export default ProceedingPageWithStore;
