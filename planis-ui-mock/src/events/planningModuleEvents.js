@@ -16,10 +16,12 @@ import { EventBus, EventType } from './eventBus';
 
 // Saaks siin inittida store iseenesest ja küsida andmeid? Või teeb seda ikkagi store. Save hetkel ei tee midagi
 export const startListeningToEvents = () => {
+  console.log('SIIN alusab planis kuulamist');
   EventBus.on(EventType.Save, function () {
     handleSaveEvent();
   });
   EventBus.on(EventType.Unmount, function () {
+    console.log('SIIN sain unmount');
     handleUnmountEvent();
   });
 };

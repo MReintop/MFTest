@@ -42,12 +42,4 @@ const ProceedingPage = () => {
   );
 };
 
-const ProceedingPageWithStore = (props) => {
-  return (
-    <ReduxProvider>
-      <ProceedingPage {...props} />
-    </ReduxProvider>
-  );
-};
-
-export default ProceedingPageWithStore;
+export default ProceedingPage;

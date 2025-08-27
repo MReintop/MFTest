@@ -2,8 +2,7 @@
 
 How to run
 
-run npm i and npm run start in both docu-ui-mock and planis-ui-mock directories
-
+run npm i and npm run start in docu-ui-mock and planis-ui-mock ja ehr-ui-mock directories
 
 # Eventid
 

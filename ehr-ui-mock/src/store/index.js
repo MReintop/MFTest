@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { configureStore } from '@reduxjs/toolkit';
-import { documentSlice } from './documentSlice';
+import ehrUiReducer from './ehrUiSlice';
 import { createReducerManager } from './reducerManager';
 
 export function configureAppStore() {
-  const reducerManager = createReducerManager({
-    document: documentSlice.reducer,
-  });
+  const reducerManager = createReducerManager({ ehrUiSlice: ehrUiReducer });
 
   const store = configureStore({
     reducer: reducerManager.reduce,

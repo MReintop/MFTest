@@ -1,7 +1,7 @@
 export const EventType = {
   Notification: 'Notification',
   Save: 'Save',
-  PageUnmount: 'PageUnmount',
+  Unmount: 'Unmount',
   PlanningModuleSaved: 'PlanningModuleSaved',
 };
 

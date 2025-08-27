@@ -27,7 +27,5 @@ export const { isetDocState, addNotification, setNotifications } =
 
 export const notificationsSelector = createSelector(
   (state) => state,
-  (state) => state.document.notifications ?? [],
+  (state) => state.document?.notifications ?? [],
 );
-
-export default documentSlice.reducer;

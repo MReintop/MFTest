@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useStore, useSelector, useDispatch } from 'react-redux';
-import PageWrapper from '../components/PageWrapper';
 import { Box, Tabs, Tab, Button, SnackbarContent, Stack } from '@mui/material';
 import PlanningTabContent from './tabContents/PlanningTabContent';
 import { a11yProps, CustomTabPanel } from '../components/CustomTabPanel';
@@ -12,6 +11,7 @@ import {
 import {
   notificationsSelector,
   setNotifications,
+  documentSlice,
 } from '../store/documentSlice';
 import { EventBus, EventType } from '../events/eventBus';
 import { saveDocument } from '../store/documentThunks';
@@ -24,6 +24,7 @@ const DocPage = () => {
   const [tabIndex, setTabIndex] = React.useState(0);
   const [localNotifications, setLocalNotifications] = React.useState([]);
 
+  // Store context ainult komponentidel
   const {
     planningModuleStartListeningEvents,
     umnountPlanningModule,
@@ -34,8 +35,10 @@ const DocPage = () => {
 
   useEffect(() => {
     startListeningDocPageEvents();
-
     // Kas see vajalik, kui meil pole seal midagi muudetud
+
+    // store.reducerManager.add('document', documentSlice.reducer);
+
     planningModuleStartListeningEvents();
     return () => {
       // imported functions
@@ -58,11 +61,11 @@ const DocPage = () => {
 
     EventBus.on(EventType.PlanningModuleSaved, () => {
       dispatch(saveDocument());
+      console.log('SIIN docpages peale savemist');
     });
 
     // Imported fn
     // await savePlanningModule();
-    console.log('SIIN docpages peale savemist');
   };
 
   const removeNotifications = () => {
@@ -133,12 +136,4 @@ const DocPage = () => {
   );
 };
 
-const DocPageWithStore = (props) => {
-  return (
-    <ReduxProvider>
-      <DocPage {...props} />
-    </ReduxProvider>
-  );
-};
-
-export default DocPageWithStore;
+export default DocPage;

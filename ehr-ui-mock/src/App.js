@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './pages/Home';
 import ProceedingPageWrapper from './pages/ProceedingPageWrapper';
 import DocPageWrapper from './pages/DocPageWrapper';
+import ReduxProvider from './providers/StoreProvider';
 
 const router = createBrowserRouter([
   {
@@ -27,12 +28,12 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <>
-      {/* <StoreProvider> */}
-      {/* Removed strict mode. Triggers mount-unmount twice otherwise locally */}
-      {/* <React.StrictMode> */}
-      <RouterProvider router={router} />
-      {/* </React.StrictMode> */}
-      {/* </StoreProvider> */}
+      <ReduxProvider>
+        {/* Removed strict mode. Triggers mount-unmount twice otherwise locally */}
+        {/* <React.StrictMode> */}
+        <RouterProvider router={router} />
+        {/* </React.StrictMode> */}
+      </ReduxProvider>
     </>
   );
 }
