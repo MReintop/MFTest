@@ -1,17 +1,18 @@
 import store from '../store';
-import { sendNotification } from '../store/documentThunks';
-import { EventBus, EventType } from './eventBus';
-
-export const startListeningDocPageEvents = () => {
-  EventBus.on(EventType.Notification, (e) =>
-    handleNotificationEvent(e?.detail?.message ?? '-'),
-  );
-};
-
-export const stopListeningDocPageEvents = () => {
-  EventBus.off(EventType.Notification);
-};
+import { cleanDocumentSlice } from '../store/documentSlice/documentSlice';
+import { cleanGlobalUISlice } from '../store/globalUiSlice/globalUiSlice';
+import { sendNotification } from '../store/globalUiSlice/globalUiThunks';
+import { cleanProceedingSlice } from '../store/proceedingSlice/proceedingSlice';
 
 export const handleNotificationEvent = (message) => {
   store.dispatch(sendNotification(message));
+};
+
+export const handleUnmountEvent = () => {
+  // Remove slice or empty it
+  // store.reducerManager.remove(PlanningGeneralDataSliceKey);
+
+  store.dispatch(cleanDocumentSlice());
+  store.dispatch(cleanGlobalUISlice());
+  store.dispatch(cleanProceedingSlice());
 };

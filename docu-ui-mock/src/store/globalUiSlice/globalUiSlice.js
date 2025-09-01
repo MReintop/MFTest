@@ -1,31 +1,31 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  documentState: '',
   notifications: [],
 };
 
-export const documentSlice = createSlice({
-  name: 'document',
+export const globalUiSlice = createSlice({
+  name: 'globalUi',
   initialState,
   reducers: {
-    setDocState: (state, action) => {
-      state.documentState = action.payload;
-    },
     addNotification: (state, action) => {
       state.notifications = [...state.notifications, action.payload];
     },
     setNotifications: (state, action) => {
       state.notifications = action.payload;
     },
+    cleanGlobalUISlice: (state) => {
+      console.log('globalUi.cleanState triggered');
+      return initialState;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { isetDocState, addNotification, setNotifications } =
-  documentSlice.actions;
+export const { addNotification, setNotifications, cleanGlobalUISlice } =
+  globalUiSlice.actions;
 
 export const notificationsSelector = createSelector(
   (state) => state,
-  (state) => state.document?.notifications ?? [],
+  (state) => state.globalUi?.notifications ?? [],
 );

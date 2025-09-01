@@ -8,7 +8,7 @@ import {
   Box,
   CircularProgress,
 } from '@mui/material';
-import { FontDownloadOffRounded } from '@mui/icons-material';
+import { ArrowCircleUp } from '@mui/icons-material';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ReduxProvider from '../../../store/ReduxProvider';
@@ -49,7 +49,7 @@ const PlanningAreaSection = ({ permissions }) => {
       <AccordionSummary
         aria-controls="panel1-content"
         id="panel1-header"
-        expandIcon={<FontDownloadOffRounded />}
+        expandIcon={<ArrowCircleUp />}
       >
         <Typography component="span">Planeeringuala</Typography>
       </AccordionSummary>

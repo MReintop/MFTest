@@ -20,6 +20,7 @@ const PageWrapper = ({ title, children }) => {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // For local development
   return (
     <Container>
       <Drawer open={menuOpen} onClose={() => setMenuOpen(false)}>
@@ -27,15 +28,28 @@ const PageWrapper = ({ title, children }) => {
           <MenuItem>
             <Button onClick={() => navigate('/')}>Avaleht</Button>
           </MenuItem>
+
           <MenuItem>
-            <Button onClick={() => navigate('/document/1')}>Dokument 1</Button>
+            <Button onClick={() => navigate('/document/1/1')}>
+              Dokument 1
+            </Button>
           </MenuItem>
+
           <MenuItem>
-            <Button onClick={() => navigate('/document/2')}>Dokument 2</Button>
+            <Button onClick={() => navigate('/document/2/2')}>
+              Dokument 2
+            </Button>
           </MenuItem>
+
           <MenuItem>
             <Button onClick={() => navigate('/proceeding/1/1')}>
-              Menetlus
+              Menetlus 1
+            </Button>
+          </MenuItem>
+
+          <MenuItem>
+            <Button onClick={() => navigate('/proceeding/2/2')}>
+              Menetlus 2
             </Button>
           </MenuItem>
         </Container>
@@ -60,6 +74,7 @@ const PageWrapper = ({ title, children }) => {
           </Toolbar>
         </AppBar>
       </Box>
+
       <Container maxWidth="sm">{children}</Container>
     </Container>
   );

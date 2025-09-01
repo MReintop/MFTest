@@ -1,46 +1,80 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  cleanEhrUiSlice,
+  setSystemNotifications,
+  systemNotificationsSelector,
+} from '../store/ehrUiSlice';
+import { EventBus, EventType } from '../events/eventBus';
 import PageWrapper from '../components/components/PageWrapper';
-import { useSelector, useStore } from 'react-redux';
-import { somethingSelector } from '../store/ehrUiSlice';
+import { Button, SnackbarContent, Stack } from '@mui/material';
+import { handleNotificationEvent } from '../events/ehrUiModuleEvents';
+
+import 'DocuUI/moduleInitializer';
 
 const DocPage = React.lazy(() => import('DocuUI/DocPage'));
 
-// Ainult see töötab
-import('DocuUI/moduleInitializer');
-
-const docSlice = await import('DocuUI/documentSlice');
-
-// EI tööta
-// const initDocumentUi = () => import('DocuUI/moduleInitializer');
-
 const DocPageWrapper = () => {
-  const store = useStore();
+  const dispatch = useDispatch();
 
-  const something = useSelector(somethingSelector);
-
-  const initDocuUi = async () => {
-    // EI tööta
-    // const moduleInit = await import('DocuUI/moduleInitializer');
-    // console.log('SIIN', moduleInit);
-    // moduleInit.initModule();
-    // initDocumentUi();
-  };
-
-  console.log('SIIN something ehrUi', something);
+  const systemNotifications = useSelector(systemNotificationsSelector);
+  const [localSystemNotification, setLocalSystemNotifications] = useState([]);
 
   useEffect(() => {
-    console.log('SIIN', docSlice.documentSlice);
-    store.reducerManager.add('document', docSlice.documentSlice.reducer);
+    if (systemNotifications?.length) {
+      setLocalSystemNotifications(systemNotifications);
+    }
+  }, [systemNotifications]);
 
-    initDocuUi();
-    console.log('SIIN', store.getState());
+  const handleSystemNotification = (e) => {
+    handleNotificationEvent(e.detail?.message);
+  };
+
+  useEffect(() => {
+    EventBus.on(EventType.SystemNotification, (e) =>
+      handleNotificationEvent(e.detail?.message),
+    );
+
+    return () => {
+      dispatch(cleanEhrUiSlice());
+
+      EventBus.off(EventType.SystemNotification, handleSystemNotification);
+      EventBus.emit(EventType.Unmount);
+    };
   }, []);
+
+  const removeNotifications = () => {
+    dispatch(setSystemNotifications([]));
+    setLocalSystemNotifications([]);
+  };
+
+  const Notification = (
+    <React.Fragment>
+      <Button color="primary" size="small" onClick={removeNotifications}>
+        Sulge süsteemi teavitus
+      </Button>
+    </React.Fragment>
+  );
 
   return (
     <PageWrapper title="Document">
       <Suspense fallback={<>Laen andmeid ...</>}>
         <DocPage permissions={['W']} />
       </Suspense>
+
+      {!!localSystemNotification.length && (
+        <Stack spacing={2} sx={{ maxWidth: 600 }}>
+          {localSystemNotification.map((notification, index) => (
+            <SnackbarContent
+              open={true}
+              key={'sys-notif' + index}
+              onClose={removeNotifications}
+              message={notification}
+              action={Notification}
+            />
+          ))}
+        </Stack>
+      )}
     </PageWrapper>
   );
 };

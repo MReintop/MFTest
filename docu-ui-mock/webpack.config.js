@@ -45,8 +45,9 @@ module.exports = {
         PlansUI: 'PlansUI@http://localhost:3000/remoteEntry.js',
       },
       exposes: {
-        './DocPage': './src/pages/DocPage',
-        './ProceedingPage': './src/pages/ProceedingPage',
+        './DocPage': './src/pages/docPage/DocPage',
+        './ProceedingPage': './src/pages/proceedingPage/ProceedingPage',
+        './moduleInitializer': './src/events/moduleInitializer',
       },
       shared: [
         {

@@ -8,7 +8,7 @@ import {
   Box,
   CircularProgress,
 } from '@mui/material';
-import { FontDownloadOffRounded } from '@mui/icons-material';
+import { ArrowCircleDown } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -24,7 +24,6 @@ import planningGeneralDataReducer, {
 
 import { fetchPlanningData } from './thunks/planningGeneralDataThunks';
 import PlanningDetailsForm from './components/PlanningDetailsForm';
-import { startListeningToEvents } from '../../../events/planningModuleEvents';
 
 const PlanningGeneralDataSection = ({ permissions }) => {
   const { planningId } = useParams();
@@ -55,7 +54,7 @@ const PlanningGeneralDataSection = ({ permissions }) => {
       <AccordionSummary
         aria-controls="panel1-content"
         id="panel1-header"
-        expandIcon={<FontDownloadOffRounded />}
+        expandIcon={<ArrowCircleDown />}
       >
         <Typography component="span">Üldinfo</Typography>
       </AccordionSummary>

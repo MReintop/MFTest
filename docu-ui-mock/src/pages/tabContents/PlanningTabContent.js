@@ -12,6 +12,7 @@ const PlanningAreaSection = React.lazy(() =>
 const PlanningTabContent = () => {
   const [permissions, setPermissions] = useState(['R']);
 
+  // TODO : Handle permissions
   const changePermissons = () => {
     if (permissions.includes('R')) {
       setPermissions(['W']);

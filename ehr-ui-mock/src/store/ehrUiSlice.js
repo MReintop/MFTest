@@ -1,24 +1,37 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  something: 'something',
+  systemNotifications: [],
 };
 
 export const ehrUiSlice = createSlice({
   name: 'ehrUiSlice',
   initialState,
   reducers: {
-    setSomething: (state, action) => {
-      state.something = action.payload;
+    setSystemNotifications: (state, action) => {
+      state.systemNotifications = action.payload;
+    },
+    addSystemNotification: (state, action) => {
+      state.systemNotifications = [
+        ...state.systemNotifications,
+        action.payload,
+      ];
+    },
+    cleanEhrUiSlice: () => {
+      return initialState;
     },
   },
 });
 
-export const { setSomething } = ehrUiSlice.actions;
+export const {
+  setSystemNotifications,
+  addSystemNotification,
+  cleanEhrUiSlice,
+} = ehrUiSlice.actions;
 
-export const somethingSelector = createSelector(
+export const systemNotificationsSelector = createSelector(
   (state) => state,
-  (state) => state.ehrUiSlice?.something ?? 'other',
+  (state) => state.ehrUiSlice?.systemNotifications ?? [],
 );
 
 export default ehrUiSlice.reducer;

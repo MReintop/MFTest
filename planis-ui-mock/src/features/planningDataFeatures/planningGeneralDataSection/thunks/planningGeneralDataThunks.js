@@ -57,8 +57,6 @@ export const savePlanningGeneralData = createAsyncThunk(
     const state = getState();
     console.log('SIIN SAVEN GENERAL DATAT', state[PlanningGeneralDataSliceKey]);
     const res = await savePlanningData();
-    console.log('SIIN GENERAL DATA SAVED');
-    EventBus.emit(EventType.Notification, { message: 'Planning module saved' });
     return res;
   },
 );

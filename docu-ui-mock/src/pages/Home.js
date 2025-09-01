@@ -11,22 +11,32 @@ const HomePage = () => {
     <PageWrapper title="Avaleht">
       <Grid container spacing={2} gap={3} margin={2}>
         <Grid size={6}>
-          <Button variant="outlined" onClick={() => navigate('/document/1')}>
+          <Button variant="outlined" onClick={() => navigate('/document/1/1')}>
             Dokument 1
           </Button>
         </Grid>
+
         <Grid size={6}>
-          <Button variant="outlined" onClick={() => navigate('/document/2')}>
+          <Button variant="outlined" onClick={() => navigate('/document/2/2')}>
             Dokument 2
           </Button>
         </Grid>
 
-        <Grid size={12}>
+        <Grid size={6}>
           <Button
             variant="outlined"
             onClick={() => navigate('/proceeding/1/1')}
           >
-            Menetlus
+            Menetlus 1
+          </Button>
+        </Grid>
+
+        <Grid size={6}>
+          <Button
+            variant="outlined"
+            onClick={() => navigate('/proceeding/2/2')}
+          >
+            Menetlus 2
           </Button>
         </Grid>
       </Grid>

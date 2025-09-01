@@ -1,4 +1,3 @@
-import { store } from '../store';
 import {
   cleanPlanningAreaSlice,
   PlanningAreaSliceKey,
@@ -9,32 +8,17 @@ import {
   PlanningGeneralDataSliceKey,
 } from '../features/planningDataFeatures/planningGeneralDataSection/slice/planningGeneralDataSlice';
 import { savePlanningGeneralData } from '../features/planningDataFeatures/planningGeneralDataSection/thunks/planningGeneralDataThunks';
+import { store } from '../store';
 import { EventBus, EventType } from './eventBus';
-
-// Ei saanud kasutada Promise.all või Promise.allSettled, ta kutsub dispatch välja
-// Teoorias võiks saada siia mappida lihtsalt aga praegu ei suutnud välja mõelda
-
-// Saaks siin inittida store iseenesest ja küsida andmeid? Või teeb seda ikkagi store. Save hetkel ei tee midagi
-export const startListeningToEvents = () => {
-  console.log('SIIN alusab planis kuulamist');
-  EventBus.on(EventType.Save, function () {
-    handleSaveEvent();
-  });
-  EventBus.on(EventType.Unmount, function () {
-    console.log('SIIN sain unmount');
-    handleUnmountEvent();
-  });
-};
-
-export const stopListeningToEvents = () => {
-  EventBus.off(EventType.Save);
-  EventBus.off(EventType.Unmount);
-};
 
 export const handleSaveEvent = async () => {
   const existingReducers = Object.keys(store.getState());
 
-  console.log('SIIN save triggered in module');
+  if (!existingReducers.length) {
+    EventBus.emit(EventType.PlanningModuleSaved);
+    return;
+  }
+
   try {
     if (existingReducers.includes(PlanningGeneralDataSliceKey)) {
       await store.dispatch(savePlanningGeneralData());
@@ -69,6 +53,4 @@ export const handleUnmountEvent = async () => {
 
     store.reducerManager.remove(PlanningAreaSliceKey);
   }
-
-  stopListeningToEvents();
 };

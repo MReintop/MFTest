@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import DocPage from './pages/DocPage';
-import ProceedingPage from './pages/ProceedingPage';
+import DocPage from './pages/docPage/DocPage';
+import ProceedingPage from './pages/proceedingPage/ProceedingPage';
 import StoreProvider from './providers/StoreProvider';
 import HomePage from './pages/Home';
 
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
 
   {
     id: 'document',
-    path: '/document/:planningId',
+    path: '/document/:docNr/:planningId',
     element: <DocPage />,
   },
 ]);

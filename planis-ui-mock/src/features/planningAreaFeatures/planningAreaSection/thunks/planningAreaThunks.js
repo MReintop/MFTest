@@ -49,7 +49,6 @@ export const savePlanningAreaData = createAsyncThunk(
     const state = getState();
     console.log('SIIN SAVEN AREA DATAT', state.planningArea);
     const res = await savePlanningArea();
-    console.log('SIIN AREA DATA SAVED');
     return res;
   },
 );

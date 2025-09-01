@@ -47,7 +47,7 @@ module.exports = {
           './src/features/planningDataFeatures/planningGeneralDataSection/PlanningGeneraDataSection.js',
         './PlanningAreaSection':
           './src/features/planningAreaFeatures/planningAreaSection/PlanningAreaSection',
-        './planningModuleEvents': './src/events/planningModuleEvents',
+        './moduleInitializer': './src/events/moduleInitializer',
       },
 
       shared: [

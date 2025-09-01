@@ -20,7 +20,7 @@ const router = createBrowserRouter([
 
   {
     id: 'document',
-    path: '/document/:planningId',
+    path: '/document/:docNr/:planningId',
     element: <DocPageWrapper />,
   },
 ]);
