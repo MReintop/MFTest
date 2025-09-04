@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Tabs, Tab, Button } from '@mui/material';
 
@@ -12,7 +12,8 @@ import ProcedeedingGeneralDataTabContent from '../tabContents/ProceedingGeneralD
 
 const ProceedingPageLayout = () => {
   const dispatch = useDispatch();
-  const [tabIndex, setTabIndex] = useState(0);
+
+  const { tabIndex, setTabIndex } = useTabs();
 
   const saveDocumentModule = () => {
     dispatch(saveDocument());

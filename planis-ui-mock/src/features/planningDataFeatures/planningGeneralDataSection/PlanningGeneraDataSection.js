@@ -22,11 +22,15 @@ import planningGeneralDataReducer, {
   planningSliceMountedSelector,
 } from './slice/planningGeneralDataSlice';
 
-import { fetchPlanningData } from './thunks/planningGeneralDataThunks';
+import {
+  fetchPlanningData,
+  fetchPlanningDataByDocNr,
+} from './thunks/planningGeneralDataThunks';
 import PlanningDetailsForm from './components/PlanningDetailsForm';
 
 const PlanningGeneralDataSection = ({ permissions }) => {
-  const { planningId } = useParams();
+  // docnr järgi! või planningId järgi.
+  const { planningId, docNr, docType } = useParams();
   const dispatch = useDispatch();
 
   const isLoading = useSelector(planningDataLoadingSelector);
@@ -43,10 +47,19 @@ const PlanningGeneralDataSection = ({ permissions }) => {
     );
   }, []);
 
-  useEffect(() => {
-    if (planningId && planningData?.planningId?.toString() !== planningId) {
+  const fetchData = () => {
+    if (docNr && docType && planningData?.docNr !== `${docType}/${docNr}`) {
+      dispatch(fetchPlanningDataByDocNr(`${docType}/${docNr}`));
+    } else if (
+      planningId &&
+      planningData?.planningId?.toString() !== planningId
+    ) {
       dispatch(fetchPlanningData(planningId));
     }
+  };
+
+  useEffect(() => {
+    fetchData();
   }, [isStoreMounted, planningData?.planningId]);
 
   return (

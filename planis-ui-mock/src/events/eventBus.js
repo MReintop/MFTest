@@ -4,6 +4,7 @@ export const EventType = {
   Save: 'Save',
   Unmount: 'Unmount',
   PlanningModuleSaved: 'PlanningModuleSaved',
+  Validate: 'Validate',
 };
 
 export const EventBus = {

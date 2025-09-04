@@ -9,16 +9,49 @@ import {
   Toolbar,
   Typography,
   Drawer,
+  Tooltip,
   MenuItem,
+  Avatar,
+  Menu,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import {
+  mockDocNr12973,
+  mockDocNr12976,
+  mockDocType12973,
+  mockDocType12976,
+} from '../../constants/dotyConstants';
+import { roles } from '../../constants/userConstants';
+import {
+  setCurrentRole,
+  userCurrentRoleSelector,
+} from '../../store/ehrUiSlice';
 
 const PageWrapper = ({ title, children }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const currentRole = useSelector(userCurrentRoleSelector);
+
+  const [anchorElUser, setAnchorElUser] = useState();
+
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const handleRoleSelect = (selectedRole) => {
+    dispatch(setCurrentRole(selectedRole));
+    setAnchorElUser(null);
+  };
 
   return (
     <Container>
@@ -29,13 +62,21 @@ const PageWrapper = ({ title, children }) => {
           </MenuItem>
 
           <MenuItem>
-            <Button onClick={() => navigate('/document/1/1')}>
+            <Button
+              onClick={() =>
+                navigate(`/document/${mockDocType12973}/${mockDocNr12973}/1`)
+              }
+            >
               Dokument 1
             </Button>
           </MenuItem>
 
           <MenuItem>
-            <Button onClick={() => navigate('/document/2/2')}>
+            <Button
+              onClick={() =>
+                navigate(`/document/${mockDocType12976}/${mockDocNr12976}/2`)
+              }
+            >
               Dokument 2
             </Button>
           </MenuItem>
@@ -71,6 +112,40 @@ const PageWrapper = ({ title, children }) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               {title}
             </Typography>
+
+            <Box sx={{ flexGrow: 0, mx: 2 }}>
+              <Typography>{currentRole}</Typography>
+            </Box>
+
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {roles.map((role) => (
+                  <MenuItem key={role} onClick={() => handleRoleSelect(role)}>
+                    <Typography sx={{ textAlign: 'center' }}>{role}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
           </Toolbar>
         </AppBar>
       </Box>

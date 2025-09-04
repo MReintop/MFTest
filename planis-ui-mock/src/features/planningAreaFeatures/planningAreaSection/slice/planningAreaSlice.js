@@ -1,5 +1,8 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
-import { fetchPlanningAreaData } from '../thunks/planningAreaThunks';
+import {
+  fetchPlanningAreaData,
+  fetchPlanningAreaDataByDocNr,
+} from '../thunks/planningAreaThunks';
 
 const initialState = {
   sliceMounted: true,
@@ -36,6 +39,22 @@ export const planningAreaSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchPlanningAreaData.rejected, (state) => {
+      state.loading = false;
+      state.error = true;
+    });
+
+    builder.addCase(
+      fetchPlanningAreaDataByDocNr.fulfilled,
+      (state, { payload }) => {
+        state.loading = false;
+        Object.assign(state, payload);
+      },
+    );
+    builder.addCase(fetchPlanningAreaDataByDocNr.pending, (state) => {
+      state.error = false;
+      state.loading = true;
+    });
+    builder.addCase(fetchPlanningAreaDataByDocNr.rejected, (state) => {
       state.loading = false;
       state.error = true;
     });

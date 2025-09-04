@@ -1,9 +1,9 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import DocPage from './pages/docPage/DocPage';
 import ProceedingPage from './pages/proceedingPage/ProceedingPage';
 import StoreProvider from './providers/StoreProvider';
 import HomePage from './pages/Home';
+import DocumentPageSwitch from './pages/docPage/DocumentPageSwitch';
 
 const router = createBrowserRouter([
   {
@@ -20,8 +20,8 @@ const router = createBrowserRouter([
 
   {
     id: 'document',
-    path: '/document/:docNr/:planningId',
-    element: <DocPage />,
+    path: '/document/:docType/:docNr/:planningId',
+    element: <DocumentPageSwitch />,
   },
 ]);
 

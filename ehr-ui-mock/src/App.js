@@ -4,6 +4,7 @@ import HomePage from './pages/Home';
 import ProceedingPageWrapper from './pages/ProceedingPageWrapper';
 import DocPageWrapper from './pages/DocPageWrapper';
 import ReduxProvider from './providers/StoreProvider';
+import PlanningPageWrapper from './pages/ProceedingPageWrapper';
 
 const router = createBrowserRouter([
   {
@@ -19,8 +20,16 @@ const router = createBrowserRouter([
   },
 
   {
+    id: 'planning',
+    path: '/planning/:planningId',
+    element: <PlanningPageWrapper />,
+  },
+
+  {
     id: 'document',
-    path: '/document/:docNr/:planningId',
+
+    // planning optional
+    path: '/document/:docType/:docNr/:planningId',
     element: <DocPageWrapper />,
   },
 ]);

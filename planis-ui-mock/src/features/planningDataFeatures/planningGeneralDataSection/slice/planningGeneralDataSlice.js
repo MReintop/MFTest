@@ -1,5 +1,8 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
-import { fetchPlanningData } from '../thunks/planningGeneralDataThunks';
+import {
+  fetchPlanningData,
+  fetchPlanningDataByDocNr,
+} from '../thunks/planningGeneralDataThunks';
 
 const initialState = {
   sliceMounted: true,
@@ -10,8 +13,10 @@ const initialState = {
   status: undefined,
   code: undefined,
   address: '',
+  docNr: '',
   loading: false,
   error: false,
+  planningDataErrors: undefined,
 };
 
 export const PlanningGeneralDataSliceKey = 'planningGeneralData';
@@ -23,6 +28,17 @@ export const planningGeneralDataSlice = createSlice({
     setPlanningName: (state, action) => {
       state.planningName = action.payload;
     },
+
+    setPlanningDataErrors: (state, action) => {
+      state.planningDataErrors = action.payload;
+    },
+
+    removeError: (state, action) => {
+      if (state.planningDataErrors) {
+        delete state.planningDataErrors[action.payload];
+      }
+    },
+
     cleanPlanningGeneralDataSlice: () => {
       return initialState;
     },
@@ -37,6 +53,22 @@ export const planningGeneralDataSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchPlanningData.rejected, (state) => {
+      state.loading = false;
+      state.error = true;
+    });
+
+    builder.addCase(
+      fetchPlanningDataByDocNr.fulfilled,
+      (state, { payload }) => {
+        state.loading = false;
+        Object.assign(state, payload);
+      },
+    );
+    builder.addCase(fetchPlanningDataByDocNr.pending, (state) => {
+      state.error = false;
+      state.loading = true;
+    });
+    builder.addCase(fetchPlanningDataByDocNr.rejected, (state) => {
       state.loading = false;
       state.error = true;
     });
@@ -55,10 +87,10 @@ export const planningDataSelector = createSelector(selectSelf, (state) => {
     return undefined;
   }
 
-  const { planningName, planningId, type, goal, status, address, code } =
+  const { planningName, planningId, type, goal, status, address, code, docNr } =
     state.planningGeneralData;
 
-  return { planningName, planningId, type, goal, status, address, code };
+  return { planningName, planningId, type, goal, status, address, code, docNr };
 });
 
 export const planningDataLoadingSelector = createSelector(
@@ -71,8 +103,18 @@ export const planningDataErrorSelector = createSelector(
   (state) => state.planningGeneralData?.error,
 );
 
+export const planningDataErrorsSelector = createSelector(
+  selectSelf,
+  (state) => state.planningGeneralData?.planningDataErrors,
+);
+
 // Action creators are generated for each case reducer function
-export const { setPlanningName, cleanPlanningGeneralDataSlice } =
-  planningGeneralDataSlice.actions;
+
+export const {
+  setPlanningName,
+  cleanPlanningGeneralDataSlice,
+  setPlanningDataErrors,
+  removeError,
+} = planningGeneralDataSlice.actions;
 
 export default planningGeneralDataSlice.reducer;

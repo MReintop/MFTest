@@ -54,3 +54,21 @@ export const handleUnmountEvent = async () => {
     store.reducerManager.remove(PlanningAreaSliceKey);
   }
 };
+
+// export const handleValidateEvent = async () => {
+//   const existingReducers = Object.keys(store.getState());
+
+//   console.log('SIIN unmount triggered');
+//   if (existingReducers.includes(PlanningGeneralDataSliceKey)) {
+//     // Kasutada ühte või teist, mitte mõlemat varianti
+//     store.dispatch(cleanPlanningGeneralDataSlice());
+
+//     store.reducerManager.remove(PlanningGeneralDataSliceKey);
+//   }
+
+//   if (existingReducers.includes(PlanningAreaSliceKey)) {
+//     store.dispatch(cleanPlanningAreaSlice());
+
+//     store.reducerManager.remove(PlanningAreaSliceKey);
+//   }
+// };

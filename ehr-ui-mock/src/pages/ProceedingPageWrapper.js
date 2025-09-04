@@ -12,9 +12,9 @@ import { handleNotificationEvent } from '../events/ehrUiModuleEvents';
 
 import 'DocuUI/moduleInitializer';
 
-const ProceedingPage = React.lazy(() => import('DocuUI/ProceedingPage'));
+const PlanningPage = React.lazy(() => import('DocuUI/PlanningPage'));
 
-const ProceedingPageWrapper = () => {
+const PlanningPageWrapper = () => {
   const dispatch = useDispatch();
 
   const systemNotifications = useSelector(systemNotificationsSelector);
@@ -56,7 +56,7 @@ const ProceedingPageWrapper = () => {
   return (
     <PageWrapper title="Menetlus">
       <Suspense fallback={<>Laen andmeid ...</>}>
-        <ProceedingPage permissions={['W']} />
+        <PlanningPage permissions={['W']} />
       </Suspense>
 
       {!!localSystemNotification.length && (
@@ -76,4 +76,4 @@ const ProceedingPageWrapper = () => {
   );
 };
 
-export default ProceedingPageWrapper;
+export default PlanningPageWrapper;

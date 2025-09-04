@@ -1,5 +1,8 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { fetchDocumentData } from './documentThunks';
+import {
+  fetchDocumentData,
+  fetchDocumentDataByPlanningId,
+} from './documentThunks';
 
 const initialState = {
   applicationDto: undefined,
@@ -30,6 +33,21 @@ export const documentSlice = createSlice({
       state.applicationDtoLoading = true;
     });
     builder.addCase(fetchDocumentData.rejected, (state) => {
+      state.applicationDtoLoading = false;
+      state.applicationDto = undefined;
+    });
+
+    builder.addCase(
+      fetchDocumentDataByPlanningId.fulfilled,
+      (state, { payload }) => {
+        state.applicationDtoLoading = false;
+        state.applicationDto = payload;
+      },
+    );
+    builder.addCase(fetchDocumentDataByPlanningId.pending, (state) => {
+      state.applicationDtoLoading = true;
+    });
+    builder.addCase(fetchDocumentDataByPlanningId.rejected, (state) => {
       state.applicationDtoLoading = false;
       state.applicationDto = undefined;
     });

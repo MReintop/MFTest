@@ -14,6 +14,12 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { useNavigate } from 'react-router-dom';
+import {
+  mockDocNr12973,
+  mockDocNr12976,
+  mockDocType12973,
+  mockDocType12976,
+} from '../pages/docPage/documentHelpers';
 
 const PageWrapper = ({ title, children }) => {
   const navigate = useNavigate();
@@ -30,13 +36,21 @@ const PageWrapper = ({ title, children }) => {
           </MenuItem>
 
           <MenuItem>
-            <Button onClick={() => navigate('/document/1/1')}>
+            <Button
+              onClick={() =>
+                navigate(`/document/${mockDocType12973}/${mockDocNr12973}/1`)
+              }
+            >
               Dokument 1
             </Button>
           </MenuItem>
 
           <MenuItem>
-            <Button onClick={() => navigate('/document/2/2')}>
+            <Button
+              onClick={() =>
+                navigate(`/document/${mockDocType12976}/${mockDocNr12976}/2`)
+              }
+            >
               Dokument 2
             </Button>
           </MenuItem>

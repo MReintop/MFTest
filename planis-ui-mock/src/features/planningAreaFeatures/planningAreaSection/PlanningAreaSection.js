@@ -9,7 +9,7 @@ import {
   CircularProgress,
 } from '@mui/material';
 import { ArrowCircleUp } from '@mui/icons-material';
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ReduxProvider from '../../../store/ReduxProvider';
 import { store } from '../../../store';
@@ -21,11 +21,13 @@ import planningAreaSliceReducer, {
   PlanningAreaSliceKey,
   planningAreaSliceMountedSelector,
 } from './slice/planningAreaSlice';
-import { fetchPlanningAreaData } from './thunks/planningAreaThunks';
-import { startListeningToEvents } from '../../../events/planningModuleEvents';
+import {
+  fetchPlanningAreaData,
+  fetchPlanningAreaDataByDocNr,
+} from './thunks/planningAreaThunks';
 
 const PlanningAreaSection = ({ permissions }) => {
-  const { planningId } = useParams();
+  const { planningId, docNr, docType } = useParams();
   const dispatch = useDispatch();
 
   const isLoading = useSelector(planningAreaLoadingSelector);
@@ -38,10 +40,16 @@ const PlanningAreaSection = ({ permissions }) => {
     store.reducerManager.add(PlanningAreaSliceKey, planningAreaSliceReducer);
   }, []);
 
-  useEffect(() => {
-    if (planningId && planningIdFromStore?.toString() !== planningId) {
+  const fetchData = () => {
+    if (docNr && docType) {
+      dispatch(fetchPlanningAreaDataByDocNr(`${docType}/${docNr}`));
+    } else if (planningId && planningIdFromStore?.toString() !== planningId) {
       dispatch(fetchPlanningAreaData(planningId));
     }
+  };
+
+  useEffect(() => {
+    fetchData();
   }, [isStoreMounted, planningId]);
 
   return (

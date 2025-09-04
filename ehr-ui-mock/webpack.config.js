@@ -9,13 +9,12 @@ const htmlPlugin = new HtmlWebPackPlugin({
 module.exports = {
   mode: 'development',
   output: {
-    publicPath: 'auto',
+    publicPath: '/',
   },
   devServer: {
     port: 3002,
-    historyApiFallback: true,
-    static: {
-      directory: path.join(__dirname, 'dist'),
+    historyApiFallback: {
+      index: '/index.html',
     },
   },
   module: {
@@ -40,8 +39,6 @@ module.exports = {
   plugins: [
     htmlPlugin,
     new ModuleFederationPlugin({
-      name: 'EhrUI',
-      filename: 'remoteEntry.js',
       remotes: {
         DocuUI: 'DocuUI@http://localhost:3001/remoteEntry.js',
       },

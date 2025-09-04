@@ -4,6 +4,7 @@ import { Box, Grid, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   areaSizeSelector,
+  planningAreaIdSelector,
   planningCoordinatesSelector,
   setPlanningAreaSize,
 } from '../slice/planningAreaSlice';
@@ -11,6 +12,7 @@ import {
 const PlanningAreaForm = ({ isEditable }) => {
   const dispatch = useDispatch();
 
+  const areaId = useSelector(planningAreaIdSelector);
   const plannignAreaCoordinates = useSelector(planningCoordinatesSelector);
   const areaSize = useSelector(areaSizeSelector);
 
@@ -29,6 +31,17 @@ const PlanningAreaForm = ({ isEditable }) => {
           value={areaSize}
           onChange={changeAreaSize}
           disabled={!isEditable}
+        />
+      </Grid>
+
+      <Grid size={12} item>
+        <TextField
+          fullWidth
+          id="area_size"
+          label="Ala id"
+          variant="standard"
+          value={areaId}
+          disabled
         />
       </Grid>
 

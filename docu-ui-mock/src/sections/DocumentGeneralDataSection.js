@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Accordion,
@@ -14,13 +14,18 @@ import {
   applicationDtoSelector,
   setDocumentName,
 } from '../store/documentSlice/documentSlice';
+import ValidationContext from '../contexts/ValidationContext';
 
 const DocumentGeneralDataSection = ({ isEditable = true }) => {
   const dispatch = useDispatch();
 
   const applicationDto = useSelector(applicationDtoSelector);
 
+  const { clearErrors, getErrorMessagesByFieldName } =
+    useContext(ValidationContext);
+
   const changeName = (event) => {
+    clearErrors('docName');
     dispatch(setDocumentName(event?.target?.value ?? ' '));
   };
 
@@ -44,6 +49,8 @@ const DocumentGeneralDataSection = ({ isEditable = true }) => {
               variant="standard"
               value={applicationDto.docName}
               onChange={changeName}
+              error={!!getErrorMessagesByFieldName('docName')}
+              helperText={getErrorMessagesByFieldName('docName')}
               disabled={!isEditable}
             />
           </Grid>
