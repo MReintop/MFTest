@@ -1,5 +1,6 @@
 import { uniq } from 'lodash';
 import { useState } from 'react';
+import * as yup from 'yup';
 import {
   deleteFieldAndChildrenErrors,
   getParentAndChildErrorKeys,
@@ -8,7 +9,18 @@ import {
 } from './yupValidationHelpers';
 import { EventBus, EventType } from '../events/eventBus';
 
-export const useYupValidation = (schema) => {
+export interface YupValidation {
+  validate: (data: any, onValid: any, context?: any) => void;
+  getErrorMessagesByFieldName: (
+    fieldNames: string | string[],
+  ) => string | undefined;
+  clearErrors: (fieldKey?: string) => void;
+  errors: { [key: string]: string };
+  getErrorMessagesWithIntlShape: () => { [key: string]: string };
+  groupedErrors: { [key: string]: string[] };
+}
+
+export const useYupValidation = (schema): YupValidation => {
   const [errors, setErrors] = useState({});
   const [groupedErrors, setGroupedErrors] = useState({});
 
@@ -19,7 +31,7 @@ export const useYupValidation = (schema) => {
         setErrors({});
         onValid(data);
       },
-      (err) => {
+      (err: yup.ValidationError) => {
         if (errorsGrouped) {
           setGroupedErrors(mapGroupedValidationErrors(err));
         } else {
@@ -30,7 +42,7 @@ export const useYupValidation = (schema) => {
   };
 
   const getErrorMessagesByFieldName = (fieldNames) => {
-    let errorKeys = [];
+    let errorKeys: string[] = [];
 
     if (Array.isArray(fieldNames)) {
       errorKeys = fieldNames
@@ -40,7 +52,7 @@ export const useYupValidation = (schema) => {
       errorKeys = getParentAndChildErrorKeys(errors, fieldNames);
     }
 
-    const formattedMessages = [];
+    const formattedMessages: string[] = [];
     for (const field of errorKeys) {
       errors[field] && formattedMessages.push(errors[field]);
     }
@@ -50,7 +62,7 @@ export const useYupValidation = (schema) => {
       : undefined;
   };
 
-  const clearErrors = (fieldKey) => {
+  const clearErrors = (fieldKey: string | undefined): void => {
     if (!fieldKey) {
       setErrors({});
       setGroupedErrors({});
@@ -61,11 +73,19 @@ export const useYupValidation = (schema) => {
     }
   };
 
+  const getErrorMessagesWithIntlShape = () => {
+    return Object.keys(errors).reduce((acc, key) => {
+      acc[key] = Array.from(new Set([errors[key]])).join(', ');
+      return acc;
+    }, {} as { [key: string]: string });
+  };
+
   return {
     validate,
     getErrorMessagesByFieldName,
     clearErrors,
     errors,
+    getErrorMessagesWithIntlShape,
     groupedErrors,
   };
 };

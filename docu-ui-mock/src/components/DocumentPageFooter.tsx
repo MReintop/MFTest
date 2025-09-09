@@ -4,13 +4,13 @@ import { Box, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { applicationDtoSelector } from '../store/documentSlice/documentSlice';
-import ValidationContext from '../contexts/ValidationContext';
 import { EventBus, EventType } from '../events/eventBus';
 import { AppThunkDispatch } from '../store/types';
 import { saveDocument } from '../store/documentSlice/documentThunks';
 import { userCurrentRoleSelector } from '../store/globalUiSlice/globalUiSlice';
 import usePageButtonPermissions from '../permissions/permissionHooks/usePageButtonPermissions';
 import { DocumentButtons } from '../permissions/permissionsConstants';
+import ValidationContext from '../contexts/ValidationContext';
 
 const DocumentPageFooter = () => {
   const dispatch = useDispatch<AppThunkDispatch>();

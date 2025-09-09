@@ -33,6 +33,7 @@ const PlanningDetailsForm = ({ isEditable }) => {
     );
   };
 
+  console.log('SIIN', errors);
   useEffect(() => {
     if (objectNotEmpty(errors)) {
       // Global event, et sektsioon sai errorid?
@@ -91,7 +92,7 @@ const PlanningDetailsForm = ({ isEditable }) => {
           variant="standard"
           value={planningData.planningName}
           error={!!getErrorMessagesByFieldName('planningName')}
-          helperText={getErrorMessagesByFieldName['planningName']}
+          helperText={getErrorMessagesByFieldName('planningName')}
           onChange={changeName}
           disabled={!isEditable}
         />
