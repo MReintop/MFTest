@@ -67,7 +67,7 @@ const PlanningAreaSection = ({ permissions }) => {
             <CircularProgress />
           </Box>
         ) : (
-          <PlanningAreaForm isEditable={permissions?.includes('W')} />
+          <PlanningAreaForm isEditable={permissions.edit} />
         )}
       </AccordionDetails>
     </Accordion>

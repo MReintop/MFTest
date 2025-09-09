@@ -74,8 +74,6 @@ export const fetchPlanningAreaData = createAsyncThunk(
 export const fetchPlanningAreaDataByDocNr = createAsyncThunk(
   'planningArea/fetchPlanningAreaDataByDocNr',
   async (docNr) => {
-    console.log('SIIN fetchin docNr järgi', docNr);
-
     const planningAreaData = await getPlanningAreaDataByDocNr(docNr);
     return planningAreaData;
   },
@@ -91,9 +89,7 @@ const savePlanningArea = async () => {
 
 export const savePlanningAreaData = createAsyncThunk(
   'planningArea/savePlanningAreaData',
-  async (_, { getState }) => {
-    const state = getState();
-    console.log('SIIN SAVEN AREA DATAT', state.planningArea);
+  async (_) => {
     const res = await savePlanningArea();
     return res;
   },

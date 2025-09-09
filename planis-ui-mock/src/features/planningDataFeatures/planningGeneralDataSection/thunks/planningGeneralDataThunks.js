@@ -103,8 +103,7 @@ const savePlanningData = async () => {
 
 export const savePlanningGeneralData = createAsyncThunk(
   'planningGeneralData/savePlanningGeneralData',
-  async (_, { getState }) => {
-    const state = getState();
+  async (_) => {
     const res = await savePlanningData();
     return res;
   },

@@ -4,6 +4,8 @@ import ProceedingPage from './pages/proceedingPage/ProceedingPage';
 import StoreProvider from './providers/StoreProvider';
 import HomePage from './pages/Home';
 import DocumentPageSwitch from './pages/docPage/DocumentPageSwitch';
+import { Role } from './permissions/permissionsConstants';
+import PlanningPage from './pages/planningPage/PlanningPage';
 
 const router = createBrowserRouter([
   {
@@ -15,13 +17,19 @@ const router = createBrowserRouter([
   {
     id: 'proceeding',
     path: '/proceeding/:proceedingNr/:planningId',
-    element: <ProceedingPage />,
+    element: <ProceedingPage currentRole={Role.Proceeder} />,
   },
 
   {
     id: 'document',
     path: '/document/:docType/:docNr/:planningId',
-    element: <DocumentPageSwitch />,
+    element: <DocumentPageSwitch currentRole={Role.Applicant} />,
+  },
+
+  {
+    id: 'planning',
+    path: '/planning/:planningId',
+    element: <PlanningPage />,
   },
 ]);
 

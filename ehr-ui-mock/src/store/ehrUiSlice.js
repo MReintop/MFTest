@@ -1,9 +1,9 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { ROLE_AKPERSON } from '../constants/userConstants';
+import { Role } from '../constants/userConstants';
 
 const initialState = {
   systemNotifications: [],
-  currentRole: ROLE_AKPERSON,
+  currentRole: Role.Applicant,
 };
 
 export const ehrUiSlice = createSlice({

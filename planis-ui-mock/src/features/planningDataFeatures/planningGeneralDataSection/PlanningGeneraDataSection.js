@@ -33,6 +33,8 @@ const PlanningGeneralDataSection = ({ permissions }) => {
   const { planningId, docNr, docType } = useParams();
   const dispatch = useDispatch();
 
+  // Sisemine conf?
+
   const isLoading = useSelector(planningDataLoadingSelector);
   const isStoreMounted = useSelector(planningSliceMountedSelector);
   const planningData = useSelector(planningDataSelector);
@@ -77,7 +79,7 @@ const PlanningGeneralDataSection = ({ permissions }) => {
             <CircularProgress />
           </Box>
         ) : (
-          <PlanningDetailsForm isEditable={permissions?.includes('W')} />
+          <PlanningDetailsForm isEditable={permissions.edit} />
         )}
       </AccordionDetails>
     </Accordion>

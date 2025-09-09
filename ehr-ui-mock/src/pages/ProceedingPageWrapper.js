@@ -4,6 +4,7 @@ import {
   cleanEhrUiSlice,
   setSystemNotifications,
   systemNotificationsSelector,
+  userCurrentRoleSelector,
 } from '../store/ehrUiSlice';
 import { EventBus, EventType } from '../events/eventBus';
 import PageWrapper from '../components/components/PageWrapper';
@@ -12,10 +13,11 @@ import { handleNotificationEvent } from '../events/ehrUiModuleEvents';
 
 import 'DocuUI/moduleInitializer';
 
-const PlanningPage = React.lazy(() => import('DocuUI/PlanningPage'));
+const ProceedingPage = React.lazy(() => import('DocuUI/ProceedingPage'));
 
-const PlanningPageWrapper = () => {
+const ProceedingPageWrapper = () => {
   const dispatch = useDispatch();
+  const currentRole = useSelector(userCurrentRoleSelector);
 
   const systemNotifications = useSelector(systemNotificationsSelector);
   const [localSystemNotification, setLocalSystemNotifications] = useState([]);
@@ -56,7 +58,7 @@ const PlanningPageWrapper = () => {
   return (
     <PageWrapper title="Menetlus">
       <Suspense fallback={<>Laen andmeid ...</>}>
-        <PlanningPage permissions={['W']} />
+        <ProceedingPage currentRole={currentRole} />
       </Suspense>
 
       {!!localSystemNotification.length && (
@@ -76,4 +78,4 @@ const PlanningPageWrapper = () => {
   );
 };
 
-export default PlanningPageWrapper;
+export default ProceedingPageWrapper;

@@ -4,7 +4,7 @@ import HomePage from './pages/Home';
 import ProceedingPageWrapper from './pages/ProceedingPageWrapper';
 import DocPageWrapper from './pages/DocPageWrapper';
 import ReduxProvider from './providers/StoreProvider';
-import PlanningPageWrapper from './pages/ProceedingPageWrapper';
+import PlanningPageWrapper from './pages/PlanningPageWrapper';
 
 const router = createBrowserRouter([
   {
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
 
   {
     id: 'proceeding',
-    path: '/proceeding/:proceedingNr/:planningId',
+    path: '/proceeding/:proceedingNr/:planningId?',
     element: <ProceedingPageWrapper />,
   },
 
@@ -27,9 +27,8 @@ const router = createBrowserRouter([
 
   {
     id: 'document',
-
     // planning optional
-    path: '/document/:docType/:docNr/:planningId',
+    path: '/document/:docType/:docNr/:planningId?',
     element: <DocPageWrapper />,
   },
 ]);

@@ -1,8 +1,11 @@
 import { createContext } from 'react';
 
 const ValidationContext = createContext({
-  getErrorMessagesByFieldName: () => undefined,
-  clearErrors: () => {},
+  getErrorMessagesByFieldName: (something) => undefined,
+  clearErrors: (something) => {},
+  validate: (toValidate, onValid) => {
+    onValid();
+  },
   errors: {},
 });
 

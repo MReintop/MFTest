@@ -18,10 +18,13 @@ module.exports = {
       directory: path.join(__dirname, 'dist'),
     },
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.json'],
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|cjs|mjs|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -49,7 +52,6 @@ module.exports = {
           './src/features/planningAreaFeatures/planningAreaSection/PlanningAreaSection',
         './moduleInitializer': './src/events/moduleInitializer',
       },
-
       shared: [
         {
           react: {

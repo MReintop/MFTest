@@ -14,7 +14,6 @@ export const useYupValidation = (schema) => {
 
   const validate = (data, onValid, context, errorsGrouped = false) => {
     EventBus.emit(EventType.Validate);
-    console.log('SIIN');
     return schema.validate(data, { abortEarly: false, context }).then(
       () => {
         setErrors({});

@@ -17,10 +17,13 @@ module.exports = {
       index: '/index.html',
     },
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.json'],
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|cjs|mjs|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',

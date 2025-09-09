@@ -13,11 +13,9 @@ import { handleNotificationEvent } from '../events/ehrUiModuleEvents';
 
 import 'DocuUI/moduleInitializer';
 
-const DocumentPageSwitch = React.lazy(() =>
-  import('DocuUI/DocumentPageSwitch'),
-);
+const PlanningPage = React.lazy(() => import('DocuUI/PlanningPage'));
 
-const DocPageWrapper = () => {
+const PlanningPageWrapper = () => {
   const dispatch = useDispatch();
   const currentRole = useSelector(userCurrentRoleSelector);
 
@@ -63,7 +61,7 @@ const DocPageWrapper = () => {
   return (
     <PageWrapper title="Document">
       <Suspense fallback={<>Laen andmeid ...</>}>
-        <DocumentPageSwitch currentRole={currentRole} />
+        <PlanningPage currentRole={currentRole} />
       </Suspense>
 
       {!!localSystemNotification.length && (
@@ -83,4 +81,4 @@ const DocPageWrapper = () => {
   );
 };
 
-export default DocPageWrapper;
+export default PlanningPageWrapper;

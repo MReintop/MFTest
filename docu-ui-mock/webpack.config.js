@@ -17,10 +17,13 @@ module.exports = {
     historyApiFallback: true,
     static: path.join(__dirname, 'public'),
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.json'],
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|cjs|mjs|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -30,6 +33,7 @@ module.exports = {
         test: /\.(sa|sc|c)ss$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
+
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
         loader: 'url-loader',
