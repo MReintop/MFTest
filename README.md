@@ -1,4 +1,4 @@
-# Module federation testing
+# Module federation POC
 
 How to run
 
