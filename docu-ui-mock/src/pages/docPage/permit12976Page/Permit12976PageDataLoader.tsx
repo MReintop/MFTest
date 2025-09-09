@@ -11,7 +11,7 @@ import {
 import { AppThunkDispatch } from '../../../store/types';
 
 const Permit12976PageDataLoader = ({ children }) => {
-  const { docNr } = useParams();
+  const { docNr, docType } = useParams();
   const dispatch = useDispatch<AppThunkDispatch>();
 
   const applicationDto = useSelector(applicationDtoSelector);
@@ -19,7 +19,7 @@ const Permit12976PageDataLoader = ({ children }) => {
 
   useEffect(() => {
     if (docNr && (!applicationDto?.docNr || applicationDto.docNr !== docNr)) {
-      dispatch(fetchDocumentData(docNr));
+      dispatch(fetchDocumentData(`${docType}/${docNr}`));
     }
   }, [docNr]);
 

@@ -22,14 +22,12 @@ const PlanningTabContent = () => {
 
   const generalDataPermissions = usePageSectionPermissions({
     sectionName: PageSection.PlanningGeneralDataSection,
-    userRole,
-    documentState: applicationDto.state,
+    params: { userRole, documentState: applicationDto.state },
   });
 
   const areaPermissions = usePageSectionPermissions({
     sectionName: PageSection.PlanningAreaSection,
-    userRole,
-    documentState: applicationDto.state,
+    params: { userRole, documentState: applicationDto.state },
   });
 
   return (

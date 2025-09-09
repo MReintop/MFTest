@@ -1,23 +1,17 @@
 import React, { useContext } from 'react';
 import PagePermissionsContext from '../../contexts/PagePermissionsContext';
 import { getSectionPermissions, PermissionsConf } from './permissionHelpers';
-import {
-  DocumentState,
-  PageSection,
-  Role,
-  SectionHTMLElement,
-} from '../permissionsConstants';
+import { PageSection, SectionHTMLElement } from '../permissionsConstants';
+import { SectionPermissionParams } from '../pagePermissionsConfig.interface';
 
 interface usePageSectionPermissionsProps {
   sectionName: PageSection | SectionHTMLElement;
-  userRole: Role;
-  documentState: DocumentState;
+  params: SectionPermissionParams;
 }
 
 const usePageSectionPermissions = ({
   sectionName,
-  documentState,
-  userRole,
+  params,
 }: usePageSectionPermissionsProps): PermissionsConf => {
   const pagePermissions = useContext(PagePermissionsContext);
 
@@ -25,8 +19,7 @@ const usePageSectionPermissions = ({
     pagePermissions.sections.find(
       (section) => section.sectionName === sectionName,
     ),
-    documentState,
-    userRole,
+    params,
   );
 };
 

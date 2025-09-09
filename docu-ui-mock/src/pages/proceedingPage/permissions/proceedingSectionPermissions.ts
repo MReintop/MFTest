@@ -43,4 +43,51 @@ const ProceedingGeneralDataSection: Section = {
   ],
 };
 
-export default [ProceedingGeneralDataSection, DocumentGeneralDataSection];
+const PlanningGeneralDataSection: Section = {
+  sectionName: PageSection.PlanningGeneralDataSection,
+  tabName: TabType.Planning,
+  edit: [
+    {
+      role: [Role.Proceeder],
+      documentState: [DocumentState.KOOSTAMISEL, DocumentState.MENETLUSES],
+    },
+  ],
+  read: [
+    {
+      role: [Role.Applicant, Role.Proceeder],
+      documentState: [
+        DocumentState.ESITATUD,
+        DocumentState.MENETLUSES,
+        DocumentState.KOOSTAMISEL,
+      ],
+    },
+  ],
+};
+
+const PlanningAreaSection: Section = {
+  sectionName: PageSection.PlanningAreaSection,
+  tabName: TabType.Planning,
+  edit: [
+    {
+      role: [Role.Proceeder],
+      documentState: [DocumentState.KOOSTAMISEL, DocumentState.MENETLUSES],
+    },
+  ],
+  read: [
+    {
+      role: [Role.Applicant, Role.Proceeder],
+      documentState: [
+        DocumentState.ESITATUD,
+        DocumentState.MENETLUSES,
+        DocumentState.KOOSTAMISEL,
+      ],
+    },
+  ],
+};
+
+export default [
+  ProceedingGeneralDataSection,
+  DocumentGeneralDataSection,
+  PlanningGeneralDataSection,
+  PlanningAreaSection,
+];

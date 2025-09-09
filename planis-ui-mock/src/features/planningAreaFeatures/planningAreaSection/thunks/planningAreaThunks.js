@@ -12,6 +12,7 @@ const mockPlanningAreaData = {
     planningId: 1,
     areaSize: '135000',
     coordinates: [[24234234, 234324234]],
+    docNr: `${mockDocType12973}/${mockDocNr12973}`,
   },
 
   2: {
@@ -22,6 +23,7 @@ const mockPlanningAreaData = {
       [24234234, 234324234],
       [121232131, 123213],
     ],
+    docNr: `${mockDocType12976}/${mockDocNr12976}`,
   },
 };
 
@@ -91,6 +93,7 @@ export const savePlanningAreaData = createAsyncThunk(
   'planningArea/savePlanningAreaData',
   async (_) => {
     const res = await savePlanningArea();
+    console.log('Planning area data saved in planis-ui');
     return res;
   },
 );

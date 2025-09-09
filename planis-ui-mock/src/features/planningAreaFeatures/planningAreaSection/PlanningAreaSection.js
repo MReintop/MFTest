@@ -16,6 +16,7 @@ import { store } from '../../../store';
 
 import PlanningAreaForm from './components/PlanningAreaForm';
 import planningAreaSliceReducer, {
+  planningAreaDocNrSelector,
   planningAreaIdSelector,
   planningAreaLoadingSelector,
   PlanningAreaSliceKey,
@@ -33,6 +34,7 @@ const PlanningAreaSection = ({ permissions }) => {
   const isLoading = useSelector(planningAreaLoadingSelector);
   const isStoreMounted = useSelector(planningAreaSliceMountedSelector);
   const planningIdFromStore = useSelector(planningAreaIdSelector);
+  const planningDocNr = useSelector(planningAreaDocNrSelector);
 
   useEffect(() => {
     // Should we start listening here instead. Why would we listen if there is nothing to save in store?
@@ -41,7 +43,7 @@ const PlanningAreaSection = ({ permissions }) => {
   }, []);
 
   const fetchData = () => {
-    if (docNr && docType) {
+    if (docNr && docType && planningDocNr !== `${docType}/${docNr}`) {
       dispatch(fetchPlanningAreaDataByDocNr(`${docType}/${docNr}`));
     } else if (planningId && planningIdFromStore?.toString() !== planningId) {
       dispatch(fetchPlanningAreaData(planningId));

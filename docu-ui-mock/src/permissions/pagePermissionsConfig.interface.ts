@@ -62,3 +62,27 @@ export interface DocumentType {
   doty: number;
   name: string;
 }
+
+export interface SectionPermissionParams {
+  proceedingState?: ProceedingState;
+  proceedingStage?: ProceedingStage;
+  documentState?: DocumentState;
+  operationState?: OperationState | MENTOIMSEIS;
+  userRole: Role;
+}
+
+export interface TabPermissionParams {
+  proceedingState?: ProceedingState;
+  proceedingStage?: ProceedingStage;
+  documentState?: DocumentState;
+  operationState?: OperationState | MENTOIMSEIS;
+  userRole: Role;
+}
+
+export interface ButtonPermissionParams {
+  proceedingState?: ProceedingState;
+  proceedingStage?: ProceedingStage;
+  documentState?: DocumentState;
+  operationState?: OperationState | MENTOIMSEIS;
+  userRole: Role;
+}

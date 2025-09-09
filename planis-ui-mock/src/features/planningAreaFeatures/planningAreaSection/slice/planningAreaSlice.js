@@ -11,6 +11,7 @@ const initialState = {
   coordinates: [],
   loading: false,
   error: false,
+  docNr: '',
 };
 
 export const PlanningAreaSliceKey = 'planningArea';
@@ -71,6 +72,11 @@ export const planningAreaSliceMountedSelector = createSelector(
 export const planningAreaIdSelector = createSelector(
   selectSelf,
   (state) => state.planningArea?.planningId,
+);
+
+export const planningAreaDocNrSelector = createSelector(
+  selectSelf,
+  (state) => state.planningArea?.docNr,
 );
 
 export const planningCoordinatesSelector = createSelector(

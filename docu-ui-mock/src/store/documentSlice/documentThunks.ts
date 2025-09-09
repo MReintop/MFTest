@@ -17,7 +17,7 @@ export interface ApplicationDto {
 }
 
 const mockApplicationData = {
-  [mockDocNr12973]: {
+  [`${mockDocType12973}/${mockDocNr12973}`]: {
     id: Math.random(),
     docNr: `${mockDocType12973}/${mockDocNr12973}`,
     docName: `Document nr ${mockDocType12973}/${mockDocNr12973}`,
@@ -25,7 +25,7 @@ const mockApplicationData = {
     planningId: 1,
   },
 
-  [mockDocNr12976]: {
+  [`${mockDocType12976}/${mockDocNr12976}`]: {
     id: Math.random(),
     docNr: `${mockDocType12976}/${mockDocNr12976}`,
     docName: `Document nr ${mockDocType12976}/${mockDocNr12976}`,
@@ -82,6 +82,8 @@ export const saveDocument = createAsyncThunk<void, void>(
     const response = await saveCurrentDocument();
 
     dispatch(sendNotification('Dokument salvestatud!'));
+
+    console.log('Document saved in docu-ui');
     return response;
   },
 );

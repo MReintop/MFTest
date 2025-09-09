@@ -27,8 +27,7 @@ const DocumentGeneralDataSection = () => {
 
   const { edit, read } = usePageSectionPermissions({
     sectionName: PageSection.DocumentGeneralDataSection,
-    userRole,
-    documentState: applicationDto.state,
+    params: { userRole, documentState: applicationDto.state },
   });
 
   const { clearErrors, getErrorMessagesByFieldName } =

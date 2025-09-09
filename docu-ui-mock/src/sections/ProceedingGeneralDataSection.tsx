@@ -28,8 +28,7 @@ const ProceedingGeneralDataSection = () => {
 
   const { edit, read } = usePageSectionPermissions({
     sectionName: PageSection.ProceedingGeneralDataSection,
-    userRole,
-    documentState: applicationDto.state,
+    params: { userRole, documentState: applicationDto.state },
   });
 
   const changeName = (event) => {

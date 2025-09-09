@@ -1,6 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { PlanningGeneralDataSliceKey } from '../slice/planningGeneralDataSlice';
-import { EventBus, EventType } from '../../../../events/eventBus';
 import {
   mockDocType12976,
   mockDocNr12976,
@@ -105,6 +103,7 @@ export const savePlanningGeneralData = createAsyncThunk(
   'planningGeneralData/savePlanningGeneralData',
   async (_) => {
     const res = await savePlanningData();
+    console.log('Planning general data saved in planis-ui');
     return res;
   },
 );

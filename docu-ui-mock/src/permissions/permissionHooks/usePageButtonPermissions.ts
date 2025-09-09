@@ -1,19 +1,17 @@
 import React, { useContext } from 'react';
 import PagePermissionsContext from '../../contexts/PagePermissionsContext';
 import { getShownButtons } from './permissionHelpers';
-import { ButtonType } from '../pagePermissionsConfig.interface';
+import {
+  ButtonPermissionParams,
+  ButtonType,
+} from '../pagePermissionsConfig.interface';
 
-const usePageButtonPermissions = ({
-  documentState,
-  userRole,
-}): ButtonType[] => {
+const usePageButtonPermissions = (
+  params: ButtonPermissionParams,
+): ButtonType[] => {
   const pagePermissions = useContext(PagePermissionsContext);
 
-  return getShownButtons(
-    pagePermissions.buttons ?? [],
-    documentState,
-    userRole,
-  );
+  return getShownButtons(pagePermissions.buttons ?? [], params);
 };
 
 export default usePageButtonPermissions;
